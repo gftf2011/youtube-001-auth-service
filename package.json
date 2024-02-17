@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "prepare": "cd .. && npx husky install auth-service/.husky"
+    "prepare": "npx husky install"
   },
   "keywords": [],
   "author": "Gabriel Ferrari Tarallo Ferraz",
