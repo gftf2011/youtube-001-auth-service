@@ -1,0 +1,4 @@
+{
+  "*.js": ["npx eslint --fix . --ext .js"],
+  "*.ts": ["npx eslint --fix . --ext .ts"]
+}
