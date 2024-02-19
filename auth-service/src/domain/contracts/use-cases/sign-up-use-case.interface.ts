@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-namespace */
 import { IUseCase } from './use-case.interface';
 
 export interface ISignUpUseCase
