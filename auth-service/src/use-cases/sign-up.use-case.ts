@@ -1,3 +1,4 @@
+import { ISignUpUseCase } from '../domain/contracts/use-cases';
 import { InvalidEmailDomainError } from '../domain/errors';
 
 /**
@@ -8,8 +9,8 @@ import { InvalidEmailDomainError } from '../domain/errors';
 const VALID_EMAIL_REGEX =
   /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
-export class SignUpUseCase {
-  async execute(input: any): Promise<void> {
+export class SignUpUseCase implements ISignUpUseCase {
+  async execute(input: ISignUpUseCase.INPUT): Promise<ISignUpUseCase.OUTPUT> {
     if (!VALID_EMAIL_REGEX.test(input.email)) {
       throw new InvalidEmailDomainError();
     }
