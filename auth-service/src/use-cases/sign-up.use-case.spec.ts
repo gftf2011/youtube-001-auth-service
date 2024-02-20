@@ -19,7 +19,12 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({} as any);
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
-  // caso o email não tenha @
+
+  it('should throw error if email input does not have an @', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({ email: 'testmail.com' } as any);
+    await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
+  });
   // caso não tenha um dominio
   // caso não tenha um endereço
   // caso termine com um .
