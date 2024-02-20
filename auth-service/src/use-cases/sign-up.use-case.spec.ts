@@ -49,6 +49,11 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({ email: 'test@mail..com' } as any);
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
-  // caso não tenha nenhum ponto depois do endereço
+
+  it('should throw error if email input has no dot between address', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({ email: 'test@mail' } as any);
+    await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
+  });
   // caso ele tenha um espaço em branco
 });
