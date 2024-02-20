@@ -37,7 +37,12 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({ email: 'test@.com' } as any);
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
-  // caso termine com um .
+
+  it('should throw error if email input ends with a dot', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({ email: 'test@mail.' } as any);
+    await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
+  });
   // caso tenha mais de um ponto consecutivo
   // caso não tenha nenhum ponto depois do endereço
   // caso ele tenha um espaço em branco
