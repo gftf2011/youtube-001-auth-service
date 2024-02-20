@@ -22,38 +22,43 @@ describe('Sign-Up Use Case', () => {
 
   it('should throw error if email input does not have an @', async () => {
     const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: 'testmail.com' } as any);
+    const promise = sut.execute({ email: 'testmail.com' });
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
 
   it('should throw error if email input does not have a domain', async () => {
     const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: '@mail.com' } as any);
+    const promise = sut.execute({ email: '@mail.com' });
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
 
   it('should throw error if email input does not have an address', async () => {
     const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: 'test@.com' } as any);
+    const promise = sut.execute({ email: 'test@.com' });
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
 
   it('should throw error if email input ends with a dot', async () => {
     const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: 'test@mail.' } as any);
+    const promise = sut.execute({ email: 'test@mail.' });
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
 
   it('should throw error if email input has more than one consecutive dot', async () => {
     const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: 'test@mail..com' } as any);
+    const promise = sut.execute({ email: 'test@mail..com' });
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
 
   it('should throw error if email input has no dot between address', async () => {
     const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: 'test@mail' } as any);
+    const promise = sut.execute({ email: 'test@mail' });
     await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
   });
-  // caso ele tenha um espaço em branco
+
+  it('should throw error if email input has a white space', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({ email: 'test@ mail.com' });
+    await expect(promise).rejects.toThrow(new InvalidEmailDomainError());
+  });
 });
