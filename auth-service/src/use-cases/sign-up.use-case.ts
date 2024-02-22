@@ -16,7 +16,9 @@ const WHITE_SPACE_REGEX = /(\s)+/;
 
 export class SignUpUseCase implements ISignUpUseCase {
   async execute(input: ISignUpUseCase.INPUT): Promise<ISignUpUseCase.OUTPUT> {
-    if (!VALID_EMAIL_REGEX.test(input.email)) {
+    const email = input.email ? input.email.trim().toLowerCase() : '';
+
+    if (!VALID_EMAIL_REGEX.test(email)) {
       throw new InvalidEmailDomainError();
     }
 
