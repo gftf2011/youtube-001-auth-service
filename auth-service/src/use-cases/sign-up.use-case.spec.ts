@@ -79,4 +79,13 @@ describe('Sign-Up Use Case', () => {
     } as any);
     await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
   });
+
+  it('should throw error if first_name input is empty', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: '',
+    });
+    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
+  });
 });
