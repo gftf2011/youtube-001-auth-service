@@ -1,5 +1,8 @@
 import { ISignUpUseCase } from '../domain/contracts/use-cases';
-import { InvalidEmailDomainError } from '../domain/errors';
+import {
+  InvalidEmailDomainError,
+  InvalidFirstNameDomainError,
+} from '../domain/errors';
 
 /**
  * @desc Email regex
@@ -13,6 +16,10 @@ export class SignUpUseCase implements ISignUpUseCase {
   async execute(input: ISignUpUseCase.INPUT): Promise<ISignUpUseCase.OUTPUT> {
     if (!VALID_EMAIL_REGEX.test(input.email)) {
       throw new InvalidEmailDomainError();
+    }
+
+    if (input.first_name === undefined) {
+      throw new InvalidFirstNameDomainError();
     }
   }
 }
