@@ -18,7 +18,9 @@ export class SignUpUseCase implements ISignUpUseCase {
       throw new InvalidEmailDomainError();
     }
 
-    if (!input.first_name) {
+    const firstName = input.first_name;
+
+    if (!firstName || firstName.length < 2) {
       throw new InvalidFirstNameDomainError();
     }
   }
