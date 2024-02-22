@@ -97,4 +97,13 @@ describe('Sign-Up Use Case', () => {
     });
     await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
   });
+
+  it('should throw error if first_name has a surname with one character', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa a',
+    });
+    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
+  });
 });
