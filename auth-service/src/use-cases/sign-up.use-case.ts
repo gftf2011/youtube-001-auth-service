@@ -32,7 +32,7 @@ export class SignUpUseCase implements ISignUpUseCase {
       : '';
 
     firstName.split(' ').forEach((value: string) => {
-      if (value || value.length < 2) {
+      if (!value || value.length < 2) {
         throw new InvalidFirstNameDomainError();
       }
     });
