@@ -125,4 +125,14 @@ describe('Sign-Up Use Case', () => {
     } as any);
     await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
   });
+
+  it('should throw error if last_name is "null"', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa',
+      last_name: null,
+    } as any);
+    await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
+  });
 });

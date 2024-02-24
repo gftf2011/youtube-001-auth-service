@@ -38,7 +38,7 @@ export class SignUpUseCase implements ISignUpUseCase {
       }
     });
 
-    if (input.last_name === undefined) {
+    if (input.last_name === undefined || input.last_name === null) {
       throw new InvalidLastNameDomainError();
     }
   }
