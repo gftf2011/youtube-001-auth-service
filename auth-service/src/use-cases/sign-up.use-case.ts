@@ -38,8 +38,18 @@ export class SignUpUseCase implements ISignUpUseCase {
       }
     });
 
-    if (!input.last_name || input.last_name.length < 2) {
-      throw new InvalidLastNameDomainError();
-    }
+    const lastName = input.last_name
+      ? input.last_name
+          .split(WHITE_SPACE_REGEX)
+          .map((value: string) => value.trim())
+          .join(' ')
+          .toLowerCase()
+      : '';
+
+    lastName.split(' ').forEach((value: string) => {
+      if (!value || value.length < 2) {
+        throw new InvalidLastNameDomainError();
+      }
+    });
   }
 }
