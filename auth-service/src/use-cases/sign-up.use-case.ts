@@ -25,7 +25,6 @@ export class SignUpUseCase implements ISignUpUseCase {
 
     const firstName = input.first_name
       ? input.first_name
-          .trim()
           .split(WHITE_SPACE_REGEX)
           .map((value: string) => value.trim())
           .join(' ')
