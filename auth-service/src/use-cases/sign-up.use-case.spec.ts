@@ -1,6 +1,7 @@
 import {
   InvalidEmailDomainError,
   InvalidFirstNameDomainError,
+  InvalidLastNameDomainError,
 } from '../domain/errors';
 import { SignUpUseCase } from './sign-up.use-case';
 
@@ -85,7 +86,7 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({
       email: 'test@mail.com',
       first_name: '',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
   });
 
@@ -94,7 +95,7 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({
       email: 'test@mail.com',
       first_name: 'a',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
   });
 
@@ -103,7 +104,7 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({
       email: 'test@mail.com',
       first_name: 'aa a',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
   });
 
@@ -112,7 +113,16 @@ describe('Sign-Up Use Case', () => {
     const promise = sut.execute({
       email: 'test@mail.com',
       first_name: ' ',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
+  });
+
+  it('should throw error if last_name is "undefined"', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa',
+    } as any);
+    await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
   });
 });

@@ -2,6 +2,7 @@ import { ISignUpUseCase } from '../domain/contracts/use-cases';
 import {
   InvalidEmailDomainError,
   InvalidFirstNameDomainError,
+  InvalidLastNameDomainError,
 } from '../domain/errors';
 
 /**
@@ -36,5 +37,9 @@ export class SignUpUseCase implements ISignUpUseCase {
         throw new InvalidFirstNameDomainError();
       }
     });
+
+    if (input.last_name === undefined) {
+      throw new InvalidLastNameDomainError();
+    }
   }
 }
