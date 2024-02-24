@@ -38,7 +38,7 @@ export class SignUpUseCase implements ISignUpUseCase {
       }
     });
 
-    if (!input.last_name) {
+    if (!input.last_name || input.last_name.length < 2) {
       throw new InvalidLastNameDomainError();
     }
   }
