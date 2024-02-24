@@ -165,4 +165,14 @@ describe('Sign-Up Use Case', () => {
     });
     await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
   });
+
+  it('should throw error if last_name has only white spaces', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa',
+      last_name: ' ',
+    });
+    await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
+  });
 });
