@@ -64,7 +64,8 @@ export class SignUpUseCase implements ISignUpUseCase {
     if (
       !input.password ||
       WHITE_SPACE_REGEX.test(input.password) ||
-      input.password.replace(NON_NUMBERS_REGEX, '').length < 8
+      input.password.replace(NON_NUMBERS_REGEX, '').length < 8 ||
+      input.password.replace(NON_LOWERCASE_LETTERS_REGEX, '').length < 1
     ) {
       throw new InvalidPasswordDomainError();
     }
