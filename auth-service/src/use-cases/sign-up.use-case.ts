@@ -63,7 +63,7 @@ export class SignUpUseCase implements ISignUpUseCase {
 
     // password cant be undefined
 
-    if (input.password === undefined) {
+    if (input.password === undefined || input.password === null) {
       throw new InvalidPasswordDomainError();
     }
     // password cant be null
