@@ -61,10 +61,13 @@ export class SignUpUseCase implements ISignUpUseCase {
       }
     });
 
-    if (!input.password || WHITE_SPACE_REGEX.test(input.password)) {
+    if (
+      !input.password ||
+      WHITE_SPACE_REGEX.test(input.password) ||
+      input.password.replace(NON_NUMBERS_REGEX, '').length < 8
+    ) {
       throw new InvalidPasswordDomainError();
     }
-    // password cant have white spaces
     // password must have at least 8 numbers 1 lowercase letter 1 uppercase letter 1 special character
   }
 }
