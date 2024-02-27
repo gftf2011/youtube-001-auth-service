@@ -252,4 +252,15 @@ describe('Sign-Up Use Case', () => {
     });
     await expect(promise).rejects.toThrow(new InvalidPasswordDomainError());
   });
+
+  it('should throw error if password has less than 1 special character', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa',
+      last_name: 'aa',
+      password: `${'0'.repeat(8)}aA`,
+    });
+    await expect(promise).rejects.toThrow(new InvalidPasswordDomainError());
+  });
 });

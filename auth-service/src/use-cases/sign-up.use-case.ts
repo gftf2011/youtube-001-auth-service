@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ISignUpUseCase } from '../domain/contracts/use-cases';
 import {
   InvalidEmailDomainError,
@@ -66,10 +65,10 @@ export class SignUpUseCase implements ISignUpUseCase {
       WHITE_SPACE_REGEX.test(input.password) ||
       input.password.replace(NON_NUMBERS_REGEX, '').length < 8 ||
       input.password.replace(NON_LOWERCASE_LETTERS_REGEX, '').length < 1 ||
-      input.password.replace(NON_UPPERCASE_LETTERS_REGEX, '').length < 1
+      input.password.replace(NON_UPPERCASE_LETTERS_REGEX, '').length < 1 ||
+      input.password.replace(NON_SPECIAL_CHARACTER_REGEX, '').length < 1
     ) {
       throw new InvalidPasswordDomainError();
     }
-    // password must have at least 8 numbers 1 lowercase letter 1 uppercase letter 1 special character
   }
 }
