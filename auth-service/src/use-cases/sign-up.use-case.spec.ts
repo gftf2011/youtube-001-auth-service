@@ -2,6 +2,7 @@ import {
   InvalidEmailDomainError,
   InvalidFirstNameDomainError,
   InvalidLastNameDomainError,
+  InvalidPasswordDomainError,
 } from '../domain/errors';
 import { SignUpUseCase } from './sign-up.use-case';
 
@@ -142,7 +143,7 @@ describe('Sign-Up Use Case', () => {
       email: 'test@mail.com',
       first_name: 'aa',
       last_name: '',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
   });
 
@@ -152,7 +153,7 @@ describe('Sign-Up Use Case', () => {
       email: 'test@mail.com',
       first_name: 'aa',
       last_name: 'a',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
   });
 
@@ -162,7 +163,7 @@ describe('Sign-Up Use Case', () => {
       email: 'test@mail.com',
       first_name: 'aa',
       last_name: 'a aa',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
   });
 
@@ -172,7 +173,17 @@ describe('Sign-Up Use Case', () => {
       email: 'test@mail.com',
       first_name: 'aa',
       last_name: ' ',
-    });
+    } as any);
     await expect(promise).rejects.toThrow(new InvalidLastNameDomainError());
+  });
+
+  it('should throw error if password is "undefined"', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa',
+      last_name: 'aa',
+    } as any);
+    await expect(promise).rejects.toThrow(new InvalidPasswordDomainError());
   });
 });
