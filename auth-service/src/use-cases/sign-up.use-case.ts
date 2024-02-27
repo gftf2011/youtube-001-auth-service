@@ -61,13 +61,9 @@ export class SignUpUseCase implements ISignUpUseCase {
       }
     });
 
-    // password cant be undefined
-
-    if (!input.password) {
+    if (!input.password || WHITE_SPACE_REGEX.test(input.password)) {
       throw new InvalidPasswordDomainError();
     }
-    // password cant be null
-    // password cant be empty
     // password cant have white spaces
     // password must have at least 8 numbers 1 lowercase letter 1 uppercase letter 1 special character
   }

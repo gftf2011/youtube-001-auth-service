@@ -208,4 +208,15 @@ describe('Sign-Up Use Case', () => {
     });
     await expect(promise).rejects.toThrow(new InvalidPasswordDomainError());
   });
+
+  it('should throw error if password has any white space', async () => {
+    const sut = new SignUpUseCase();
+    const promise = sut.execute({
+      email: 'test@mail.com',
+      first_name: 'aa',
+      last_name: 'aa',
+      password: ' ',
+    });
+    await expect(promise).rejects.toThrow(new InvalidPasswordDomainError());
+  });
 });
