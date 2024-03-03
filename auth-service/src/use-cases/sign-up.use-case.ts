@@ -1,3 +1,6 @@
+import crypto from 'node:crypto';
+import { promisify } from 'node:util';
+
 import { ISignUpUseCase } from '../domain/contracts/use-cases';
 import {
   InvalidEmailDomainError,
@@ -70,5 +73,14 @@ export class SignUpUseCase implements ISignUpUseCase {
     ) {
       throw new InvalidPasswordDomainError();
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const password = await promisify(crypto.pbkdf2)(
+      input.password,
+      email,
+      50000,
+      512,
+      'sha512',
+    );
   }
 }
