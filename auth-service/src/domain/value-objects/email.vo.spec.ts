@@ -51,4 +51,9 @@ describe('Email Value-Object', () => {
     const sut = () => new Email('test@ mail.com');
     expect(sut).toThrow(new InvalidEmailDomainError());
   });
+
+  it('should return value if parameter is valid', () => {
+    const sut = new Email('test@mail.com');
+    expect(sut.value).toBe('test@mail.com');
+  });
 });
