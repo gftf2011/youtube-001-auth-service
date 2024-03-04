@@ -3,19 +3,11 @@ import { promisify } from 'node:util';
 
 import { ISignUpUseCase } from '../domain/contracts/use-cases';
 import {
-  InvalidEmailDomainError,
   InvalidFirstNameDomainError,
   InvalidLastNameDomainError,
   InvalidPasswordDomainError,
 } from '../domain/errors';
-
-/**
- * @desc Email regex
- * @author Esteban Küber
- * @link https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
- */
-const VALID_EMAIL_REGEX =
-  /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+import { Email } from '../domain/value-objects';
 
 const WHITE_SPACE_REGEX = /(\s)+/;
 
@@ -29,11 +21,7 @@ const NON_SPECIAL_CHARACTER_REGEX = /([^#$@]*)/g;
 
 export class SignUpUseCase implements ISignUpUseCase {
   async execute(input: ISignUpUseCase.INPUT): Promise<ISignUpUseCase.OUTPUT> {
-    const email = input.email ? input.email.trim().toLowerCase() : '';
-
-    if (!VALID_EMAIL_REGEX.test(email)) {
-      throw new InvalidEmailDomainError();
-    }
+    const email: Email = new Email(input.email);
 
     const firstName = input.first_name
       ? input.first_name
@@ -77,7 +65,7 @@ export class SignUpUseCase implements ISignUpUseCase {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const password = await promisify(crypto.pbkdf2)(
       input.password,
-      email,
+      email.value,
       50000,
       512,
       'sha512',
