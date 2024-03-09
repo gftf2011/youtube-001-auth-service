@@ -31,4 +31,9 @@ describe('FirstName Value-Object', () => {
     const sut = () => new FirstName(' ');
     expect(sut).toThrow(new InvalidFirstNameDomainError());
   });
+
+  it('should return value if parameter is valid', () => {
+    const sut = new FirstName('aa aa');
+    expect(sut.value).toBe('aa aa');
+  });
 });
