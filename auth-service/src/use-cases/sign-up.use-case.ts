@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import crypto from 'node:crypto';
 import { promisify } from 'node:util';
 
@@ -7,7 +8,7 @@ import {
   InvalidLastNameDomainError,
   InvalidPasswordDomainError,
 } from '../domain/errors';
-import { Email } from '../domain/value-objects';
+import { Email, FirstName } from '../domain/value-objects';
 
 const WHITE_SPACE_REGEX = /(\s)+/;
 
@@ -23,19 +24,7 @@ export class SignUpUseCase implements ISignUpUseCase {
   async execute(input: ISignUpUseCase.INPUT): Promise<ISignUpUseCase.OUTPUT> {
     const email: Email = new Email(input.email);
 
-    const firstName = input.first_name
-      ? input.first_name
-          .split(WHITE_SPACE_REGEX)
-          .map((value: string) => value.trim())
-          .join(' ')
-          .toLowerCase()
-      : '';
-
-    firstName.split(' ').forEach((value: string) => {
-      if (!value || value.length < 2) {
-        throw new InvalidFirstNameDomainError();
-      }
-    });
+    const firstName: FirstName = new FirstName(input.first_name);
 
     const lastName = input.last_name
       ? input.last_name
