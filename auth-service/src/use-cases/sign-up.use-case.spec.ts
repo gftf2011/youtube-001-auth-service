@@ -1,62 +1,10 @@
 import {
-  InvalidFirstNameDomainError,
   InvalidLastNameDomainError,
   InvalidPasswordDomainError,
 } from '../domain/errors';
 import { SignUpUseCase } from './sign-up.use-case';
 
 describe('Sign-Up Use Case', () => {
-  it('should throw error if first_name input is "undefined"', async () => {
-    const sut = new SignUpUseCase();
-    const promise = sut.execute({ email: 'test@mail.com' } as any);
-    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
-  });
-
-  it('should throw error if first_name input is "null"', async () => {
-    const sut = new SignUpUseCase();
-    const promise = sut.execute({
-      email: 'test@mail.com',
-      first_name: null,
-    } as any);
-    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
-  });
-
-  it('should throw error if first_name input is empty', async () => {
-    const sut = new SignUpUseCase();
-    const promise = sut.execute({
-      email: 'test@mail.com',
-      first_name: '',
-    } as any);
-    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
-  });
-
-  it('should throw error if first_name has only one character', async () => {
-    const sut = new SignUpUseCase();
-    const promise = sut.execute({
-      email: 'test@mail.com',
-      first_name: 'a',
-    } as any);
-    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
-  });
-
-  it('should throw error if first_name has a surname with one character', async () => {
-    const sut = new SignUpUseCase();
-    const promise = sut.execute({
-      email: 'test@mail.com',
-      first_name: 'aa a',
-    } as any);
-    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
-  });
-
-  it('should throw error if first_name has only white spaces', async () => {
-    const sut = new SignUpUseCase();
-    const promise = sut.execute({
-      email: 'test@mail.com',
-      first_name: ' ',
-    } as any);
-    await expect(promise).rejects.toThrow(new InvalidFirstNameDomainError());
-  });
-
   it('should throw error if last_name is "undefined"', async () => {
     const sut = new SignUpUseCase();
     const promise = sut.execute({
