@@ -3,12 +3,8 @@ import crypto from 'node:crypto';
 import { promisify } from 'node:util';
 
 import { ISignUpUseCase } from '../domain/contracts/use-cases';
-import {
-  InvalidFirstNameDomainError,
-  InvalidLastNameDomainError,
-  InvalidPasswordDomainError,
-} from '../domain/errors';
-import { Email, FirstName } from '../domain/value-objects';
+import { InvalidPasswordDomainError } from '../domain/errors';
+import { Email, FirstName, LastName } from '../domain/value-objects';
 
 const WHITE_SPACE_REGEX = /(\s)+/;
 
@@ -26,19 +22,7 @@ export class SignUpUseCase implements ISignUpUseCase {
 
     const firstName: FirstName = new FirstName(input.first_name);
 
-    const lastName = input.last_name
-      ? input.last_name
-          .split(WHITE_SPACE_REGEX)
-          .map((value: string) => value.trim())
-          .join(' ')
-          .toLowerCase()
-      : '';
-
-    lastName.split(' ').forEach((value: string) => {
-      if (!value || value.length < 2) {
-        throw new InvalidLastNameDomainError();
-      }
-    });
+    const lastName: LastName = new LastName(input.last_name);
 
     if (
       !input.password ||
