@@ -7,6 +7,11 @@ describe('UUID Value-Object', () => {
     expect(sut).toThrow(new InvalidUUIDDomainError(undefined as any));
   });
 
+  it('should throw error if uuid is "null"', () => {
+    const sut = () => UUID.tryToCreate(null as any);
+    expect(sut).toThrow(new InvalidUUIDDomainError(null as any));
+  });
+
   it('should return value', () => {
     const sut = UUID.create();
     expect(sut.value).toBeDefined();
