@@ -12,6 +12,11 @@ describe('UUID Value-Object', () => {
     expect(sut).toThrow(new InvalidUUIDDomainError(null as any));
   });
 
+  it('should throw error if uuid is empty', () => {
+    const sut = () => UUID.tryToCreate('');
+    expect(sut).toThrow(new InvalidUUIDDomainError(''));
+  });
+
   it('should return value', () => {
     const sut = UUID.create();
     expect(sut.value).toBeDefined();
