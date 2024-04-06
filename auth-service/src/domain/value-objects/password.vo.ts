@@ -15,7 +15,7 @@ const NON_UPPERCASE_LETTERS_REGEX = /([^A-Z]*)/g;
 const NON_SPECIAL_CHARACTER_REGEX = /([^#$@]*)/g;
 
 export class Password extends ValueObject<string> {
-  constructor(password: string) {
+  private constructor(password: string) {
     super(password);
   }
 
@@ -32,7 +32,11 @@ export class Password extends ValueObject<string> {
     }
   }
 
-  public static async create(
+  public static create(hashedPassword: string): Password {
+    return new Password(hashedPassword);
+  }
+
+  public static async tryToCreateHexHashed(
     password: string,
     salt: string,
   ): Promise<Password> {

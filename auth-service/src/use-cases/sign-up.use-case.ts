@@ -7,7 +7,7 @@ export class SignUpUseCase implements ISignUpUseCase {
     const email: Email = new Email(input.email);
     const firstName: FirstName = new FirstName(input.first_name);
     const lastName: LastName = new LastName(input.last_name);
-    const password: Password = await Password.create(
+    const password: Password = await Password.tryToCreateHexHashed(
       input.password,
       email.value,
     );
