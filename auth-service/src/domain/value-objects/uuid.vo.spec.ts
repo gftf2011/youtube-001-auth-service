@@ -17,6 +17,11 @@ describe('UUID Value-Object', () => {
     expect(sut).toThrow(new InvalidUUIDDomainError(''));
   });
 
+  it('should return value if parameter is valid', () => {
+    const sut = UUID.tryToCreate('326a002b-b0ae-49a0-b0db-9301bc2398f9');
+    expect(sut.value).toBe('326a002b-b0ae-49a0-b0db-9301bc2398f9');
+  });
+
   it('should return value', () => {
     const sut = UUID.create();
     expect(sut.value).toBeDefined();

@@ -4,7 +4,7 @@ import { InvalidUUIDDomainError } from '../errors';
 
 export class UUID extends ValueObject<string> {
   private constructor(id: string) {
-    super(id);
+    super(id.toLowerCase());
   }
 
   private static isValid(uuid: string): void {
