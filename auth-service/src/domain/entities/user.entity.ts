@@ -9,6 +9,19 @@ type CreateNewArgs = {
   admin: boolean;
 };
 
+type CreateArgs = {
+  id: string;
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+  admin: boolean;
+  blocked: boolean;
+  confirmed: boolean;
+  created_at: number;
+  updated_at: number;
+};
+
 type Props = {
   id: UUID;
   email: Email;
@@ -101,6 +114,30 @@ export class User extends AggregateRoot {
     const confirmed = false;
     const created_at = timespan;
     const updated_at = timespan;
+
+    return new User({
+      id,
+      email,
+      password,
+      first_name,
+      last_name,
+      created_at,
+      updated_at,
+      admin,
+      blocked,
+      confirmed,
+    });
+  }
+
+  public static create(args: CreateArgs): User {
+    const id = UUID.tryToCreate(args.id);
+    const email = new Email(args.email);
+    const password = Password.create(args.password);
+    const first_name = new FirstName(args.first_name);
+    const last_name = new LastName(args.last_name);
+    const { admin, confirmed, blocked } = args;
+    const created_at = new Date(args.created_at);
+    const updated_at = new Date(args.updated_at);
 
     return new User({
       id,
